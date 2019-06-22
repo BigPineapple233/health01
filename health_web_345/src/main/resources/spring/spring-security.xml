@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--对资源放行-->
+    <security:http pattern="/favicon.ico" security="none"></security:http>
+    <!--授权-->
+    <!--
+        use-expressions： 使用使用表达式   表达式（hasRole）
+        auto-config: 是否能使用安全框架提供的页面和资源
+    -->
+    <security:http use-expressions="true" auto-config="true">
+        <security:headers>
+            <!--设置在页面可以通过iframe访问受保护的页面，默认为不允许访问-->
+            <!--SAMEORIGIN 同源-->
+            <security:frame-options policy="SAMEORIGIN"></security:frame-options>
+        </security:headers>
+        <!--
+            配置拦截规则：
+            pattern="/**": 拦截所有的资源
+            isAuthenticated:是否认证成功
+
+            只要认证了就是可以访问pages所有的页面
+        -->
+        <security:intercept-url pattern="/pages/**" access="isAuthenticated()"></security:intercept-url>
+        <!--配置登录相关自定义页面-->
+        <!--
+                login-page: 登录页面
+                default-target-url: 认证成功后默认访问的页面
+                authentication-failure-url;认证失败后的页面
+                login-processing-url: 认证时请求的路径
+        -->
+        <security:form-login
+                login-page="/login.html"
+                default-target-url="/pages/main.html"
+                authentication-failure-url="/login.html"
+                login-processing-url="/login.do"
+        ></security:form-login>
+
+        <!--配置退出功能-->
+        <security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/login.html"></security:logout>
+
+        <security:access-denied-handler error-page="/403.html"></security:access-denied-handler>
+        <!--关闭跨站请求伪造-->
+        <security:csrf disabled="true"></security:csrf>
+
+
+    </security:http>
+    <!--创建UserDetailsService接口的实现类对象-->
+    <bean id="userService" class="com.itheima.security.SpringSecurityService"></bean>
+
+    <!--认证-->
+    <!--认证管理器-->
+    <security:authentication-manager>
+        <!--认证信息提供者
+            user-service-ref:关联一个实现了UserDetailsService接口的实现类
+        -->
+        <security:authentication-provider user-service-ref="userService">
+            <security:password-encoder ref="passwordEncoder"></security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+    <!--开启安全框架的注解配置-->
+    <security:global-method-security pre-post-annotations="enabled"></security:global-method-security>
+</beans>
