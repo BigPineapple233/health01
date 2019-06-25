@@ -41,7 +41,6 @@
     </select>
     <!--会员数量：按年龄段区分-->
     <select id="findByMemberbirthday" resultType="map">
-
         <![CDATA[  SELECT
         CASE
         WHEN ages.age  <= 18 THEN
