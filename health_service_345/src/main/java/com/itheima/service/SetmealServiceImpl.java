@@ -1,6 +1,9 @@
 package com.itheima.service;
 
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.constant.RedisConstant;
@@ -56,7 +59,24 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     public List<Setmeal> findAll() {
-        return setmealDao.findAll();
+        //从Redis中获取数据
+        String setmealList = jedisPool.getResource().hget("setmeal",11 + "");
+        //判断数据是否为空，如果为空,则调findAll向Redis中上传数据
+        if (setmealList==null || "".equals(setmealList)){
+            List<Setmeal> setmealList1 = setmealDao.findAll();
+            jedisPool.getResource().hset("setmeal",11+"", JSON.toJSON(setmealList1).toString());
+            System.out.println("走数据库");
+            return setmealDao.findAll();
+            //如果不为空,则从Redis中获取数据
+        }else {
+            String setmeal = jedisPool.getResource().hget("setmeal",11 + "");
+            if (!StringUtils.isBlank(setmeal)) {
+                //把字符串转换成list
+                System.out.println("走Redis");
+                return JSON.parseArray(setmeal, Setmeal.class);
+            }
+        }
+        return null;
     }
 
     /**
@@ -72,7 +92,19 @@ public class SetmealServiceImpl implements SetmealService {
      */
     @Override
     public Setmeal findById(Integer id) {
-        return setmealDao.findById(id);
+        String setmeal = jedisPool.getResource().get(id+"");
+        if (setmeal==null || "".equals(setmeal)){
+            Setmeal setmeal1 = setmealDao.findById(id);
+            String set = JSON.toJSONString(setmeal1);
+            jedisPool.getResource().set(id+"", set);
+            System.out.println("走数据库");
+            return setmeal1;
+        }else {
+            String setmeal2 = jedisPool.getResource().get(id+"");
+            Setmeal setmeal1 = JSON.parseObject(setmeal2, new TypeReference<Setmeal>(){});
+            System.out.println("走Redis");
+            return setmeal1;
+        }
     }
 
     @Override

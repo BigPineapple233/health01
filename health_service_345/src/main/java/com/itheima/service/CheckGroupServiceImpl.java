@@ -10,6 +10,7 @@ import com.itheima.pojo.CheckGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.JedisPool;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ import java.util.List;
 @Service(interfaceClass = CheckGroupService.class)
 @Transactional
 public class CheckGroupServiceImpl implements CheckGroupService {
+
+    @Autowired
+    JedisPool jedisPool;
 
     @Autowired
     CheckGroupDao checkGroupDao;
@@ -70,6 +74,10 @@ public class CheckGroupServiceImpl implements CheckGroupService {
      */
     @Override
     public void edit(CheckGroup checkGroup, Integer[] checkitemIds) {
+        List<Integer> list =checkGroupDao.findSetmealId(checkGroup.getId());
+        for (Integer id1 : list) {
+            jedisPool.getResource().del(id1+"");
+        }
 //        1. 修改检查组
         checkGroupDao.edit(checkGroup);
 //        2. 删除该检查组与检查项的关系
@@ -88,6 +96,10 @@ public class CheckGroupServiceImpl implements CheckGroupService {
      */
     @Override
     public void delById(Integer id) {
+        List<Integer> list =checkGroupDao.findSetmealId(id);
+        for (Integer id1 : list) {
+            jedisPool.getResource().del(id1+"");
+        }
         checkGroupDao.deleteAssociation(id);
 
         int count = checkGroupDao.findCountById(id);

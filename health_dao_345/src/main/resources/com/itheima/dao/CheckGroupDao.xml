@@ -108,5 +108,8 @@
     <select id="findCheckGroupListBySetmealId" parameterType="int" resultMap="findCheckGroupListBySetmealIdMap">
         select * from t_checkgroup where id in(select  checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id})
     </select>
+    <select id="findSetmealId" parameterType="int" resultType="int">
+        select setmeal_id from t_setmeal_checkgroup where checkgroup_id =#{id}
+    </select>
 
 </mapper>

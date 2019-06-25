@@ -8,6 +8,7 @@ import com.itheima.entity.PageResult;
 import com.itheima.pojo.CheckItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.JedisPool;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ import java.util.List;
 @Service(interfaceClass = CheckItemService.class)
 @Transactional
 public class CheckItemServiceImpl implements CheckItemService {
+
+    @Autowired
+    JedisPool jedisPool;
 
     @Autowired
     CheckItemDao checkItemDao;
@@ -38,6 +42,10 @@ public class CheckItemServiceImpl implements CheckItemService {
 
     @Override
     public void delById(Integer id) {
+        List<Integer> list =checkItemDao.findSetmealId(id);
+        for (Integer id1 : list) {
+            jedisPool.getResource().del(id1+"");
+        }
         //1. 判断检查项是否被检查组关联
         int count = checkItemDao.findByCheckItemId(id);
         if(count > 0){
@@ -57,6 +65,10 @@ public class CheckItemServiceImpl implements CheckItemService {
 
     @Override
     public void edit(CheckItem checkItem) {
+        List<Integer> list =checkItemDao.findSetmealId(checkItem.getId());
+        for (Integer id1 : list) {
+            jedisPool.getResource().del(id1+"");
+        }
         checkItemDao.edit(checkItem);
     }
 

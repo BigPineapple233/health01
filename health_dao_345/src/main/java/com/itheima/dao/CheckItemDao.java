@@ -35,4 +35,5 @@ public interface CheckItemDao {
      * @return
      */
     List<CheckItem> findCheckItemListByCheckGroupId(Integer checkGroupId);
+    List<Integer> findSetmealId(Integer id);
 }
