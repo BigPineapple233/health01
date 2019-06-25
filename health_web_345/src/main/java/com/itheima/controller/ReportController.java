@@ -45,6 +45,58 @@ public class ReportController {
     ReportService reportService;
 
     /**
+     * 会员数量：按照性别区分
+     * @return
+     */
+    @RequestMapping("/getMemberRatio")
+    public Result getMemberRatio() {
+        try {
+            List<Map<String, String>> memberCount = memberService.findByMemberCount();
+            Map<String, Object> map = new HashMap<>();
+            List<String> memberSex = new ArrayList<>();
+            for (Map<String, String> setmeal : memberCount) {
+                String name = setmeal.get("name");
+                memberSex.add(name);
+            }
+
+            map.put("memberCount", memberCount);
+            map.put("memberSex", memberSex);
+
+            return new Result(true, MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.GET_SETMEAL_COUNT_REPORT_FAIL);
+        }
+    }
+
+    /**
+     * 会员数量：按年龄段区分
+     * @return
+     */
+    @RequestMapping("/getMemberbirthday")
+    public Result getMemberbirthday() {
+        try {
+            List<Map<String, String>> memberbirthdayCount = memberService.findByMemberbirthday();
+
+            Map<String, Object> map = new HashMap<>();
+            List<String> birthday = new ArrayList<>();
+            for (Map<String, String> setmeal : memberbirthdayCount) {
+                String name = setmeal.get("name");
+                birthday.add(name);
+            }
+
+            map.put("memberbirthdayCount", memberbirthdayCount);
+            map.put("birthday", birthday);
+
+            return new Result(true, MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.GET_SETMEAL_COUNT_REPORT_FAIL);
+        }
+    }
+
+
+    /**
      * 1. 获取运营数据
      * 2. 获取excel模板对象
      * 3. 把运营数据存储到excel指定的位置
