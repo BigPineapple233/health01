@@ -9,5 +9,56 @@
           (select permission_id from t_role_permission where role_id = #{id})
     </select>
 
+    <select id="queryPage" resultType="permission" parameterType="string">
+        select * from t_permission
+        <if test="value != null and value.length > 0">
+            where keyword = #{value} or name = #{value}
+        </if>
+    </select>
 
+    <insert id="add" parameterType="permission">
+
+INSERT INTO `t_permission`
+	(
+	`name`,
+	`keyword`
+	)
+	VALUES
+	(
+	#{name},
+	#{keyword}
+	)
+    </insert>
+
+    <select id="findById" parameterType="int" resultType="permission">
+        SELECT * FROM `t_permission` where id = #{id}
+    </select>
+
+    <update id="edit" parameterType="permission">
+        update t_permission
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="keyword != null">
+                keyword = #{keyword},
+            </if>
+            <if test="description != null">
+                `description` = #{description}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findByCheckItemId" parameterType="int" resultType="int">
+        select count(1) from t_role_permission where permission_id = #{id}
+    </select>
+
+    <delete id="delById" parameterType="int">
+        select * from t_permission where id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="permission">
+        select * from t_permission
+    </select>
 </mapper>

@@ -10,6 +10,8 @@ public class MessageConstant {
     public static final String DELETE_CHECKITEM_SUCCESS = "删除检查项成功";
     public static final String ADD_CHECKITEM_SUCCESS = "新增检查项成功";
     public static final String ADD_CHECKITEM_FAIL = "新增检查项失败";
+    public static final String ADD_PERMISSION_SUCCESS = "新增权限项成功";
+    public static final String ADD_PERMISSION_FAIL = "新增权限项失败";
     public static final String EDIT_CHECKITEM_FAIL = "编辑检查项失败";
     public static final String EDIT_CHECKITEM_SUCCESS = "编辑检查项成功";
     public static final String QUERY_CHECKITEM_SUCCESS = "查询检查项成功";
@@ -66,5 +68,32 @@ public class MessageConstant {
     public static final String GET_BUSINESS_REPORT_FAIL = "获取运营统计数据失败";
     public static final String GET_SETMEAL_LIST_SUCCESS = "查询套餐列表数据成功";
     public static final String GET_SETMEAL_LIST_FAIL = "查询套餐列表数据失败";
-
+    public static final String QUERY_PERMISSION_SUCCESS ="查询权限项成功";
+    public static final String EDIT_PERMISSION_SUCCESS = "编辑权限项成功";
+    public static final String DELETE_PERMISSION_SUCCESS = "删除权限项成功";
+    public static final String DELETE_PERMISSION_FAIL ="删除权限项失败" ;
+    public static final String DELETE_MENU_SUCCESS = "删除菜单成功";
+    public static final String DELETE_MENU_FAIL =  "删除菜单失败";
+    public static final String EDIT_MENU_SUCCESS ="编辑菜单成功" ;
+    public static final String QUERY_MENU_SUCCESS = "查询菜单成功";
+    public static final String ADD_MENU_SUCCESS = "新增菜单成功";
+    public static final String ADD_MENU_FAIL = "新增菜单成功失败";
+    public static final String ADD_ROLE_SUCCESS = "新增角色成功";
+    public static final String ADD_ROLE_FAIL = "新增角色失败";
+    public static final String QUERY_ROLE_SUCCESS = "查询角色成功";
+    public static final String QUERY_ROLE_FAIL = "查询角色失败";
+    public static final String QUERY_PERMISSION_FAIL = "查询权限项失败";
+    public static final String QUERY_MENU_FAIL = "查询菜单失败" ;
+    public static final String EDIT_ROLE_SUCCESS ="编辑角色成功" ;
+    public static final String EDIT_ROLE_FAIL ="编辑角色失败" ;
+    public static final String DELETE_ROLE_SUCCESS ="删除角色成功";
+    public static final String DELETE_ROLE_FAIL ="删除角色失败";
+    public static final String ADD_USER_SUCCESS = "新增用户成功";
+    public static final String ADD_USER_FAIL = "新增用户失败";
+    public static final String QUERY_USER_SUCCESS = "查询用户成功";
+    public static final String QUERY_USER_FAIL = "查询用户失败";
+    public static final String EDIT_USER_SUCCESS = "编辑用户成功";
+    public static final String EDIT_USER_FAIL =  "编辑用户失败";
+    public static final String DELETE_USER_SUCCESS = "删除用户成功";
+    public static final String DELETE_USER_FAIL = "删除用户失败";
 }
