@@ -11,4 +11,12 @@ public interface OrderSettingService {
     void addOrderSettings(List<OrderSetting> orderSettingList);
 
     List<OrderSetting> findByMonth(String month);
+
+    /**
+     * 定义清理OrderSetting的接口
+     * @param startMonth
+     * @param endMonth
+     */
+
+    void clearOrderSetting(String startMonth,String endMonth);
 }

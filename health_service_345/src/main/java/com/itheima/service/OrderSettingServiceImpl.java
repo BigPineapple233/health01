@@ -78,4 +78,14 @@ public class OrderSettingServiceImpl implements OrderSettingService {
     public void add(OrderSetting orderSetting){
         orderSettingDao.add(orderSetting);
     }
+
+    /**
+     * 实现清理order Setting的接口
+     * @param startMonth
+     * @param endMonth
+     */
+    @Override
+    public void clearOrderSetting(String startMonth,String endMonth) {
+        orderSettingDao.clearOrderSetting(startMonth,endMonth);
+    }
 }

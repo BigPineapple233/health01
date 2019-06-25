@@ -1,9 +1,15 @@
 package com.itheima.job;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.constant.RedisConstant;
+import com.itheima.service.OrderSettingService;
+import com.itheima.utils.DateUtils;
 import com.itheima.utils.QiniuUtils;
+import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.JedisPool;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -11,7 +17,10 @@ import java.util.Set;
  * @Company http://www.ithiema.com
  * @Version 1.0
  */
+@RestController
 public class ClearImgJob {
+    @Reference
+    OrderSettingService orderSettingService;
 
     JedisPool jedisPool;
 
@@ -37,4 +46,20 @@ public class ClearImgJob {
             System.out.println(imgName);
         }
     }
+
+    /**
+     * 定义清除OrderSetting预约设置的方法
+     */
+
+    public void clearOrderSetting(){
+        //获取当前月份
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        Date today = DateUtils.getToday();
+        String format = simpleDateFormat.format(today);
+        String startMonth = format+"-1";
+        String endMonth = format+"-31";
+        //清除当前月份的OrderSetting预约设置
+        orderSettingService.clearOrderSetting(startMonth,endMonth);
+    }
+
 }

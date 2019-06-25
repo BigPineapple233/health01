@@ -97,4 +97,20 @@ public class Menu implements Serializable{
     public void setParentMenuId(Integer parentMenuId) {
         this.parentMenuId = parentMenuId;
     }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", linkUrl='" + linkUrl + '\'' +
+                ", path='" + path + '\'' +
+                ", priority=" + priority +
+                ", description='" + description + '\'' +
+                ", icon='" + icon + '\'' +
+                ", roles=" + roles +
+                ", children=" + children +
+                ", parentMenuId=" + parentMenuId +
+                '}';
+    }
 }

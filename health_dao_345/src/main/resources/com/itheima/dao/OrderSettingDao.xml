@@ -31,4 +31,7 @@
     <select id="findByMonth" resultType="orderSetting">
         select * from t_ordersetting where orderDate between #{param1} and #{param2}
     </select>
+    <delete id="clearOrderSetting" >
+       DELETE FROM t_orderSetting WHERE orderDate BETWEEN #{startMonth} AND #{endMonth}
+    </delete>
 </mapper>
