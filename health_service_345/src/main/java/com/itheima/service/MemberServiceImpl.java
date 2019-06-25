@@ -58,7 +58,16 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public List<Map<String, String>> findByMemberCount() {
-        return memberDao.findByMemberCount();
+        List<Map<String, String>> byMemberCount = memberDao.findByMemberCount();
+        for (Map<String, String> stringStringMap : byMemberCount) {
+            String name = stringStringMap.get("name");
+            if ("1".equals(name)) {
+                stringStringMap.put("name", "男");
+            } else {
+                stringStringMap.put("name", "女");
+            }
+        }
+        return byMemberCount;
     }
 
     @Override
