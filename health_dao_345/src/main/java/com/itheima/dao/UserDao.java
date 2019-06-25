@@ -1,10 +1,13 @@
 package com.itheima.dao;
 
 import com.itheima.pojo.Menu;
+import com.github.pagehelper.Page;
 import com.itheima.pojo.SysUser;
 
 import java.util.List;
 import java.util.Map;
+
+import java.util.List;
 
 /**
  * @author 黑马程序员
@@ -15,4 +18,22 @@ public interface UserDao {
     SysUser findByUsername(String username);
 
     List<Menu> getMenuList(String username);
+
+    void add(SysUser sysUser);
+
+    Page<SysUser> findByCondition(String queryString);
+
+    SysUser findById(Integer id);
+
+    List<Integer> findRoleIdsById(Integer id);
+
+    void edit(SysUser sysUser);
+
+    void deleteAssociation(Integer id);
+
+    int findCountById(Integer id);
+
+    void delById(Integer id);
+
+    void insert(Integer sysUserId, Integer roleId);
 }

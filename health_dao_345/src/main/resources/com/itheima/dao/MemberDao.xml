@@ -33,4 +33,43 @@
         select count(1) from t_member where regTime &gt;= #{date}
     </select>
 
+
+    <!--会员数量：按照性别区分-->
+    <select id="findByMemberCount" resultType="map">
+        SELECT COUNT(1) value,sex name
+        FROM t_member GROUP BY sex
+    </select>
+    <!--会员数量：按年龄段区分-->
+    <select id="findByMemberbirthday" resultType="map">
+        <![CDATA[  SELECT
+        CASE
+        WHEN ages.age  <= 18 THEN
+        '小于等于18岁'
+        WHEN ages.age > 18
+        AND ages.age  <= 30 THEN
+        '18岁到30岁'
+        WHEN ages.age  > 30
+        AND ages.age  <= 40 THEN
+        '30岁到40岁'
+        WHEN ages.age  > 40 THEN
+        '40岁及以上'
+        END AS name,
+        COUNT(*) AS value
+        FROM
+        (SELECT (YEAR(CURDATE())-YEAR(birthday))AS age FROM t_member)AS ages
+        GROUP BY
+        CASE
+        WHEN ages.age  <= 18 THEN
+        '小于等于18岁'
+        WHEN ages.age  > 18
+        AND ages.age  <= 30 THEN
+        '18岁到30岁'
+        WHEN ages.age  > 30
+        AND ages.age  <= 40 THEN
+        '30岁到40岁'
+        WHEN ages.age  > 40 THEN
+        '40岁及以上'
+        END;]]>
+
+    </select>
 </mapper>
