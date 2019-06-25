@@ -196,6 +196,35 @@
                             "children":[]
                         }
                     ]
+                },{
+                    "path": "6",     //菜单项所对应的路由路径
+                    "title": "系统设置",     //菜单项名称
+                    "icon":"el-icon-edit",
+                    "children":[//是否有子菜单，若没有，则为[]
+                        {
+                            "path": "/6-1",
+                            "title": "权限管理",
+                            "linkUrl": "/pages/permission.html",
+                            "children": []
+                        },
+                        {
+                            "path": "/6-2",
+                            "title": "菜单设置",
+                            "linkUrl": "/pages/menu.html",
+                            "children": []
+                        },{
+                            "path": "/6-3",
+                            "title": "角色管理",
+                            "linkUrl": "/pages/role.html",
+                            "children": []
+                        },
+                        {
+                            "path": "/6-4",
+                            "title": "用户管理",
+                            "linkUrl":"/pages/user.html",
+                            "children":[]
+                        }
+                    ]
                 }
             ]
         },methods:{
