@@ -14,6 +14,17 @@ public class Permission implements Serializable{
     private String description; // 描述
     private Set<Role> roles = new HashSet<Role>(0);
 
+    @Override
+    public String toString() {
+        return "Permission{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", keyword='" + keyword + '\'' +
+                ", description='" + description + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
