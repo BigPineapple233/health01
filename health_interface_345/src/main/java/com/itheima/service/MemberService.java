@@ -3,6 +3,7 @@ package com.itheima.service;
 import com.itheima.pojo.Member;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 黑马程序员
@@ -15,4 +16,10 @@ public interface MemberService {
     void reg(Member member);
 
     List<Integer>  getReportMemberCount(List<String> months);
+    /**
+     * 会员数量：按照性别区分
+     */
+    List<Map<String, String>> findByMemberCount();
+
+    List<Map<String, String>> findByMemberbirthday();
 }
