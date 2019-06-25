@@ -3,11 +3,15 @@ package com.itheima.service;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.itheima.dao.MemberDao;
 import com.itheima.pojo.Member;
+import org.hamcrest.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 黑马程序员
@@ -49,4 +53,17 @@ public class MemberServiceImpl implements MemberService {
         }
         return memberCount;
     }
+    /**
+     * 会员数量：按照性别区分
+     */
+    @Override
+    public List<Map<String, String>> findByMemberCount() {
+        return memberDao.findByMemberCount();
+    }
+
+    @Override
+    public List<Map<String, String>> findByMemberbirthday() {
+        return memberDao.findByMemberbirthday();
+    }
+
 }
