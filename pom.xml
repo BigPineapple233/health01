@@ -46,7 +46,7 @@
         <!---->
         <jedis.version>2.9.0</jedis.version>
         <!--定时工具-->
-        <quartz.version>2.2.1</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
     </properties>
     <!-- 依赖管理标签  必须加 ： 管理版本-->
     <dependencyManagement>
