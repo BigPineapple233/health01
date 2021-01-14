@@ -42,7 +42,7 @@
         <!--安全框架-->
         <spring.security.version>5.0.5.RELEASE</spring.security.version>
         <!--解析excel表格 工具-->
-        <poi.version>3.14</poi.version>
+        <poi.version>4.1.2</poi.version>
         <!---->
         <jedis.version>2.9.0</jedis.version>
         <!--定时工具-->
